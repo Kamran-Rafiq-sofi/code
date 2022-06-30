@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Assignment || Photo Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="script.js" defer></script>
+
+    <script>
+
+        window.addEventListener('resize', function () {
+            addRequiredClass();
+        })
+
+
+        function addRequiredClass() {
+            if (window.innerWidth < 860) {
+                document.body.classList.add('mobile')
+            } else {
+                document.body.classList.remove('mobile')
+            }
+        }
+
+        window.onload = addRequiredClass
+
+        let hamburger = document.querySelector('.hamburger')
+        let mobileNav = document.querySelector('.nav-list')
+
+        let bars = document.querySelectorAll('.hamburger span')
+
+        let isActive = false
+
+        hamburger.addEventListener('click', function () {
+            mobileNav.classList.toggle('open')
+            if (!isActive) {
+                bars[0].style.transform = 'rotate(45deg)'
+                bars[1].style.opacity = '0'
+                bars[2].style.transform = 'rotate(-45deg)'
+                isActive = true
+            } else {
+                bars[0].style.transform = 'rotate(0deg)'
+                bars[1].style.opacity = '1'
+                bars[2].style.transform = 'rotate(0deg)'
+                isActive = false
+            }
+
+
+        })
+    </script>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;900&family=Ubuntu:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --primary: #eb5713;
+            --dark: #232323;
+            --pure: #fff;
+            --smoke: whitesmoke;
+            --dark-gray: #999;
+        }
+
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--dark);
+            color: var(--pure);
+        }
+
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand h1 {
+            margin-left: 27px;
+            font-size: 1.5rem;
+            padding-top: 20px;
+        }
+
+        .attractive {
+            color: var(--primary);
+        }
+
+        .brand svg path {
+            fill: var(--pure);
+        }
+
+        .nav-wrapper ul.nav-list {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin-right: 24px;
+        }
+
+        .nav-wrapper ul.nav-list li {
+            margin-left: 30px;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .nav-wrapper ul.nav-list li a {
+            color: var(--pure);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all .5s ease-in-out;
+        }
+
+        .nav-wrapper ul.nav-list li a:hover,
+        .nav-wrapper ul.nav-list li.active a {
+            color: var(--primary);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: var(--pure);
+            outline: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            border: 1px solid transparent;
+            transition: all .5s ease-in-out;
+        }
+
+        .btn:hover {
+            background: transparent;
+            border-color: var(--pure);
+        }
+
+
+        @keyframes moveUp {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(20px);
+            }
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        .mobile .hamburger {
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            cursor: pointer;
+        }
+
+        .mobile .hamburger span {
+            background: var(--pure);
+            width: 28px;
+            height: 2px;
+            margin-bottom: 8px;
+            margin-right: 25px;
+        }
+
+        .mobile ul.nav-list {
+            background: -webkit-linear-gradient(45deg, #434343, #000000);
+            background: linear-gradient(45deg, #434343, #000000);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all .3s ease-in-out;
+        }
+
+        .hamburger,
+        .brand {
+            z-index: 9999;
+        }
+
+        .mobile ul.nav-list.open {
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+        }
+
+        .mobile .hamburger span {
+            transform-origin: left;
+            transition: all .3s ease-in-out;
+        }
+
+        .mobile ul.nav-list li a {
+            font-size: 20px;
+        }
+
+        .mobile ul.nav-list li {
+            margin-left: 0;
+            text-align: center;
+        }
+
+        .black-color {
+            color: #000;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .image {
+            background-color: #50A7FF;
+            position: relative;
+            flex: 1;
+            max-width: 460px;
+            height: 300px;
+            margin: 20px;
+            overflow: hidden;
+        }
+
+        .image img {
+            opacity: 0.8;
+            position: relative;
+            vertical-align: top;
+            transition: 0.6s;
+            transition-property: opacity;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .image:hover img {
+            opacity: 1;
+        }
+
+        .image .details {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: #fff;
+            width: 100%;
+            height: 100%;
+        }
+
+        .image .details h2 {
+            text-align: center;
+            font-size: 35px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-top: 50px;
+            transition: 0.5s;
+            transition-property: transform;
+        }
+
+        .image:hover .details h2 {
+            transform: translateY(-30px);
+        }
+
+        .image .details p {
+            margin: 30px 30px 0 30px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            opacity: 0;
+            transition: 0.6s;
+            transition-property: opacity, transform;
+        }
+
+        .image:hover .details p {
+            opacity: 1;
+            transform: translateY(-40px);
+        }
+
+        .more {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            width: 100%;
+            padding: 15px;
+            align-items: center;
+            justify-content: space-between;
+            bottom: -60px;
+            transition: 0.6s;
+            transition-property: bottom;
+        }
+
+        .image:hover .more {
+            bottom: 0;
+        }
+
+        .more .read-more {
+            color: #000;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .icons-links i {
+            color: #000;
+        }
+
+        .more .icons-links a:not(:last-child) i {
+            margin-right: 20px;
+        }
+
+        i.fa-solid {
+            color: #000;
+            margin-right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        i.fas {
+            color: #000;
+            margin-right: 25px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+        }
+
+        @media (max-height:800px) {
+            footer {
+                position: static;
+            }
+
+            header {
+                padding-top: 40px;
+            }
+        }
+
+        .footer-distributed {
+            background-color: var(--dark);
+            box-sizing: border-box;
+            width: 100%;
+            text-align: left;
+            font: bold 16px sans-serif;
+            padding: 50px 50px 60px 50px;
+            margin-top: 80px;
+        }
+
+        .footer-distributed .footer-left,
+        .footer-distributed .footer-center,
+        .footer-distributed .footer-right {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        /* Footer left */
+
+        .footer-distributed .footer-left {
+            width: 30%;
+        }
+
+        .footer-distributed h3 {
+            color: #ffffff;
+            font: normal 36px 'Cookie', cursive;
+            margin: 0;
+        }
+
+        /* Footer links */
+
+        .footer-distributed .footer-links {
+            color: #ffffff;
+            margin: 20px 0 12px;
+        }
+
+        .footer-distributed .footer-links a {
+            display: inline-block;
+            line-height: 1.8;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .footer-distributed .footer-company-name {
+            color: #8f9296;
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        /* Footer Center */
+
+        .footer-distributed .footer-center {
+            width: 35%;
+        }
+
+        .footer-distributed .footer-center i {
+            color: #ffffff;
+            font-size: 25px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 42px;
+            margin: 10px 15px;
+            vertical-align: middle;
+        }
+
+        .footer-distributed .footer-center i.fa-envelope {
+            font-size: 17px;
+            line-height: 38px;
+        }
+
+        .footer-distributed .footer-center p {
+            display: inline-block;
+            color: #ffffff;
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        .footer-distributed .footer-center p span {
+            display: block;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .footer-distributed .footer-center p a {
+            color: var(--primary);
+            text-decoration: none;
+            ;
+        }
+
+        /* Footer Right */
+
+        .footer-distributed .footer-right {
+            width: 30%;
+        }
+
+        .footer-distributed .footer-company-about {
+            line-height: 20px;
+            color: #92999f;
+            font-size: 13px;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .footer-distributed .footer-company-about span {
+            display: block;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer-distributed .footer-icons {
+            margin-top: 25px;
+        }
+
+        .footer-distributed .footer-icons a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            background-color: var(--dark-gray);
+            border-radius: 2px;
+            font-size: 20px;
+            color: #ffffff;
+            text-align: center;
+            line-height: 35px;
+            margin-right: 3px;
+            margin-bottom: 5px;
+        }
+
+
+        button {
+            background: #f9004d;
+            color: white;
+            text-decoration: none;
+            border: 2px solid transparent;
+            font-weight: bold;
+            padding: 13px 30px;
+            border-radius: 30px;
+            transition: .4s;
+        }
+
+        button:hover {
+            background: transparent;
+            border: 2px solid #f9004d;
+            cursor: pointer;
+        }
+
+        .attractive {
+            color: var(--primary);
+        }
+
+        .footer-distributed .footer-icons a:hover {
+            background-color: var(--primary);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-items {
+            margin-bottom: 20px;
+        }
+
+        .nav-items a {
+            color: #fff;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        .nav-items a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 880px) {
+
+            .footer-distributed .footer-left,
+            .footer-distributed .footer-center,
+            .footer-distributed .footer-right {
+                display: block;
+                width: 100%;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+
+            .footer-distributed .footer-center i {
+                margin-left: 0;
+            }
+        }
+
+        @media(max-width:1080px) {
+            .image {
+                flex: 100%;
+                max-width: 480px;
+            }
+        }
+
+        @media(max-width:450px) {
+            .images .details p {
+                font-size: 16px;
+            }
+
+            .more .read-more,
+            .more .icons-links a i {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body class="mobile">
+    <nav>
+        <div class="container nav-wrapper">
+            <div class="brand">
+                <span>
+                    <h1>PHOTO <span class="attractive"> GALLERY</span></h1>
+                </span>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-list">
+                <li class="active"> <a href="#">Home</a></li>
+                <li><a href="https://www.youtube.com/watch?v=8FwklDzRs7A" target="_blank">About</a></li>
+                <li><a href="https://jktourism.jk.gov.in/Home/Home.aspx" target="_blank">Services</a> </li>
+                <li><a href="#">Q&A</a></li>
+                <li><a href="https://www.facebook.com/Zain.Rafiq123">Contact</a></li>
+                <li>
+
+                    <a href="https://explore-kashmir.com/kashmir/">
+                        <button class="btn">Explore Kashmir</button>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="image">
+                <img src="https://thumbs.dreamstime.com/b/srinagar-kashmir-india-january-beautiful-view-dal-lake-evening-time-beautiful-mountain-range-background-224422101.jpg"
+                    alt="">
+                <div class="details">
+                    <h2>Srinagar,Kashmir</h2>
+                    <p>Srinagar in itself is a definition of beauty and it is the reason behind it's name"venice of
+                        east".</p>
+                    <div class="more">
+                        <a href="#" class="read-more">Read <span>More</span></a>
+                        <div class="icon-links">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <i class="fa-solid fa-thumbs-down"></i>
+                            <i class="fas fa-paperclip"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image">
+                <img src="https://assets.traveltriangle.com/blog/wp-content/uploads/2019/01/Gulmarg.jpeg" alt="">
+                <div class="details">
+                    <h2>Gulmarg</h2>
+                    <p>Situated in district baramulla is a famous hill station and is particularaly
+                        famous for sking.
+                    </p>
+                    <div class="more">
+                        <a href="#" class="read-more">Read <span>More</span></a>
+                        <div class="icon-links">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <i class="fa-solid fa-thumbs-down"></i>
+                            <i class="fas fa-paperclip"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image">
+                <img src="http://thekashmiriyat.co.uk/wp-content/uploads/2021/09/EINg78tWoAAvH6e.jpg" alt="">
+                <div class="details">
+                    <h2>Baramulla</span></h2>
+                    <p>Former gateway of kashmir</p>
+                    <div class="more">
+                        <a href="#" class="read-more">Read <span>More</span></a>
+                        <div class="icon-links">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <i class="fa-solid fa-thumbs-down"></i>
+                            <i class="fas fa-paperclip"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="image">
+                    <img src="https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/cover-Copy-1.jpg" alt="">
+                    <div class="details">
+                        <h2>Pahalgam</h2>
+                        <p>Situated in district Anantnag and is famous for Amarnath cave.</p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="https://go2kashmir.com/kashmir/img/sonamarg-bg.jpg" alt="">
+                    <div class="details">
+                        <h2>Sonamarg</h2>
+                        <p>Sonamarg situated in district Ganderbal is such a captivating beauty that it's called "Te
+                            Meadow Of Gold"</p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i></a>
+                                <i class="fa-solid fa-thumbs-down"></i></a>
+                                <i class="fas fa-paperclip"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="https://www.risingkashmir.com/userfiles/image/s_637627241895540047_3-1522740260.jpg"
+                        alt="">
+                    <div class="details">
+                        <h2>Bangus Valley</h2>
+                        <p>A majestic place hidden amid hills and meadows.</p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="image">
+                    <img src="https://i.pinimg.com/originals/ea/b2/6b/eab26b41fdedf15fd9add33695e38fa0.jpg" alt="">
+                    <div class="details">
+                        <h2> Uri</h2>
+                        <p>A town separating two nations.</p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i></a>
+                                <i class="fa-solid fa-thumbs-down"></i></a>
+                                <i class="fas fa-paperclip"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/1c/6a/2b/e3/autumn-s-beauty-in-kashmir.jpg"
+                        alt="">
+                    <div class="details">
+                        <h2>Aharbal Waterfall,Kulgam</h2>
+                        <p>The rush and flow of water here with its picturesque view makes it "Crown Jewel Of Kashmir"
+                        </p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="https://i0.wp.com/www.ahoymatey.blog/wp-content/uploads/2018/04/Kokernag1-filtered.jpg"
+                        alt="">
+                    <div class="details">
+                        <h2>Kokernag</h2>
+                        <p>Situated in South Kashmir's Anantnag district Kkernag with its beauty mesmerises it's
+                            visitors</p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="image">
+                    <img src="https://i1.wp.com/www.asnaav.com/wp-content/uploads/2020/04/new2-1.jpg?fit=1024%2C640&ssl=1"
+                        alt="">
+                    <div class="details">
+                        <h2>Pampore</h2>
+                        <p>Famous for the cultivation of saafron so got a name "Safron City or Kesariya Gali Of
+                            Kashmir",</p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="image">
+                    <img src="https://www.adotrip.com/public/images/areas/5d495596954da-Pulwama%20Travel%20Plan.jpg"
+                        alt="">
+                    <div class="details">
+                        <h2>Pulwama</h2>
+                        <p>One of the most fertile land in Kashmir besides rice production it's rich in milk production
+                            as well
+                            that is why it is called "Anand Of Kashmir".</p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="https://images.hindustantimes.com/img/2021/11/03/1600x900/66d06342-3cda-11ec-9fcc-fee95dab7a3e_1635967200048.jpg"
+                        alt="">
+                    <div class="details">
+                        <h2>Shopian</h2>
+                        <p>Lies in south of Kashmir and is famous for Apple harvesting. </p>
+                        <div class="more">
+                            <a href="#" class="read-more">Read <span>More</span></a>
+                            <div class="icon-links">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-thumbs-down"></i>
+                                <i class="fas fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-distributed">
+
+        <div class="footer-left">
+            <h1> Muhammad Zain <span class="attractive"> Rafiq</span></h1>
+
+            <p class="footer-links">
+                <a href="#">Home</a>
+                |
+                <a href="#">About</a>
+                |
+                <a href="#">Contact</a>
+            </p>
+
+            <div class="nav-items">
+                <a href="https://www.facebook.com/Zain.Rafiq123" target="_zain"> <i
+                        class="fab fa-facebook fa-2x"></i></a>
+                <a href="https://www.instagram.com/zainrafiq567/" target="_zain"><i
+                        class="fab fa-instagram fa-2x"></i></a>
+                <a href="https://www.linkedin.com/mwlite/in/muhammd-zain-rafiq-b6378a23a" target="_zain"> <i
+                        class="fab fa-linkedin fa-2x"></i></a>
+            </div>
+            <p class="footer-company-name">Copyright © 2022 <strong> Muhammad Zain Rafiq</strong> All rights reserved
+            </p>
+        </div>
+
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>Baramulla</span>
+                    Kashmir</p>
+            </div>
+
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+91 8493896403</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="zainrafiq628@gmail.com">zainrafiq628@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span style="color:var(--primary) ;">About Me</span>
+            </p>
+            <p style="color:white;font-size:30px"> Wanna know about me...?</p>
+            </style><br> </p>
+
+            <a href="https://www.instagram.com/zainrafiq567/">
+                <button type="button"> Click Here</button>
+            </a>
+
+            <div class="footer-icons">
+
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
